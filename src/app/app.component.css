@@ -3,7 +3,7 @@ h1 {
   font-weight: bold;
   /* text-align: center; */
   background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-  background-size: 400%;
+  background-size: 401%;
   -webkit-text-fill-color: transparent;
   animation: colorAnimation 5s linear infinite;
 }
