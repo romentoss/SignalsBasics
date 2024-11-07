@@ -43,9 +43,9 @@ jobs:
         run: touch dist/SignalsBasics/.nojekyll
 
       # Paso 7: Instalar gh-pages tool
-      - name: Install gh-pages tool
-        run: npm install --save-dev angular-cli-ghpages
+      # - name: Install gh-pages tool
+      #   run: npm install --save-dev angular-cli-ghpages
 
       # Paso 8: Desplegar a GitHub Pages
-      - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/SignalsBasics
+      # - name: Deploy to GitHub Pages
+      #   run: npx angular-cli-ghpages --dir=dist/SignalsBasics
