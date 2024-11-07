@@ -1,29 +1,57 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, CommonModule, RouterOutlet],
     }).compileComponents();
-  });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'EjemploSignals' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('EjemploSignals');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, EjemploSignals');
   });
+
+  it('debe crear el componente', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('debe tener el título "EjemploSignalsBasico"', () => {
+    expect(component.title).toBe('EjemploSignalsBasico');
+  });
+
+  it('debe inicializar el contador en 0', () => {
+    expect(component.contador()).toBe(0);
+  });
+
+  it('debe calcular dobleContador correctamente', () => {
+    expect(component.dobleContador()).toBe(0);
+    component.incrementar();
+    expect(component.dobleContador()).toBe(2);
+  });
+
+  it('debe incrementar el contador cuando se llama a incrementar()', () => {
+    component.incrementar();
+    expect(component.contador()).toBe(1);
+    component.incrementar();
+    expect(component.contador()).toBe(2);
+  });
+
+  it('debe actualizar y registrar cambios en el contador', fakeAsync(() => {
+    const consoleSpy = spyOn(console, 'log');
+
+    // Incrementamos y esperamos el efecto
+    component.incrementar();
+    tick();  // Espera que el efecto ejecute
+    expect(consoleSpy).toHaveBeenCalledWith('Contador ha cambiado a: 1');
+
+    component.incrementar();
+    tick();  // Espera que el efecto ejecute nuevamente
+    expect(consoleSpy).toHaveBeenCalledWith('Contador ha cambiado a: 2');
+  }));
 });

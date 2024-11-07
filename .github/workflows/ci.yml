@@ -1,0 +1,35 @@
+name: CI Pipeline for Angular Tests
+
+on:
+  push:
+    branches:
+      - master  # Cambié 'main' por 'master'
+  pull_request:
+    branches:
+      - master  # Cambié 'main' por 'master'
+
+jobs:
+  # Job para ejecutar las pruebas
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso para hacer checkout del código
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      # Paso para configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Puedes cambiar la versión de Node.js si es necesario
+
+      # Paso para instalar las dependencias
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Paso para ejecutar las pruebas con Karma
+      - name: Run Karma tests
+        run: |
+          npm run test -- --watch=false --browsers=ChromeHeadlessCI
