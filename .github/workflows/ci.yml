@@ -1,34 +1,41 @@
-name: CI Pipeline for Angular Tests
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
+      - master  # O la rama que desees usar para el despliegue
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso para hacer checkout del código
-      - name: Check out the code
+      # Paso 1: Hacer checkout del código
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # Paso para configurar Node.js
+      # Paso 2: Configurar Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # Paso para instalar las dependencias
+      # Paso 3: Instalar dependencias
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm install
 
-      # Paso para ejecutar las pruebas con Karma
-      - name: Run Karma tests
-        run: |
-          npm run test -- --watch=false --browsers=ChromeHeadless
+      # Paso 4: Construir la aplicación con baseHref
+      - name: Build Angular app
+        run: ng build --prod --base-href "https://romentoss.github.io/SignalsBasics/"
+
+      # Paso 5: Instalar la herramienta angular-cli-ghpages
+      - name: Install gh-pages tool
+        run: npm install --save-dev angular-cli-ghpages
+
+      # Paso 6: Desplegar la aplicación a GitHub Pages
+      - name: Deploy to GitHub Pages
+        run: npx angular-cli-ghpages --dir=dist/SignalsBasics
+
+      # Paso 7: Hacer el commit en la rama gh-pages
+      - name: Commit and push to gh-pages branch
+        run: git push --force "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
