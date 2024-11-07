@@ -24,13 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Paso 4: Instalar Angular CLI globalmente
+      # Paso 4: Instalar Angular CLI
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
       # Paso 5: Construir la aplicación con baseHref
       - name: Build Angular app
-        run: ng build --prod --base-href "https://romentoss.github.io/SignalsBasics/"
+        run: ng build --configuration production --base-href "https://romentoss.github.io/SignalsBasics/"
 
       # Paso 6: Instalar la herramienta angular-cli-ghpages
       - name: Install gh-pages tool
@@ -42,4 +42,4 @@ jobs:
 
       # Paso 8: Hacer el commit en la rama gh-pages
       - name: Commit and push to gh-pages branch
-        run: git push --force "
+        run: git push --force "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
