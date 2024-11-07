@@ -24,6 +24,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+          # Paso 3.1: Ejecutar pruebas unitarias
+      - name: Run tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
       # Paso 4: Instalar Angular CLI
       - name: Install Angular CLI
         run: npm install -g @angular/cli
