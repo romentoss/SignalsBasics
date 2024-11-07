@@ -32,14 +32,24 @@ jobs:
       - name: Build Angular app
         run: ng build --configuration production --base-href "https://romentoss.github.io/SignalsBasics/"
 
-      # Paso 6: Instalar la herramienta angular-cli-ghpages
+      # Paso 6: Verificar si los archivos de construcción existen
+      - name: Verify build output
+        run: |
+          ls -la dist/SignalsBasics
+          cat dist/SignalsBasics/index.html
+
+      # Paso 7: Crear archivo .nojekyll para evitar que GitHub lo procese
+      - name: Create .nojekyll file
+        run: touch dist/SignalsBasics/.nojekyll
+
+      # Paso 8: Instalar la herramienta angular-cli-ghpages
       - name: Install gh-pages tool
         run: npm install --save-dev angular-cli-ghpages
 
-      # Paso 7: Desplegar la aplicación a GitHub Pages
+      # Paso 9: Desplegar la aplicación a GitHub Pages
       - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=dist/SignalsBasics
 
-      # Paso 8: Hacer el commit en la rama gh-pages
+      # Paso 10: Hacer el commit en la rama gh-pages
       - name: Commit and push to gh-pages branch
         run: git push --force "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
