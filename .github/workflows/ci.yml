@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Cambié la versión de Node.js a '18'
+          node-version: '18'
 
       # Paso para instalar las dependencias
       - name: Install dependencies
@@ -31,4 +31,4 @@ jobs:
       # Paso para ejecutar las pruebas con Karma
       - name: Run Karma tests
         run: |
-          npm run test -- --watch=false --browsers=ChromeHeadlessCI
+          npm run test -- --watch=false --browsers=ChromeHeadless
