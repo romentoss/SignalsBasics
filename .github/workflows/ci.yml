@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Hacer checkout del código
+      # Paso 1: Checkout del código
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -32,20 +32,16 @@ jobs:
       - name: Build Angular app
         run: |
           ng build --configuration production --base-href "https://romentoss.github.io/SignalsBasics/"
-          ls -la dist/SignalsBasics # Verifica que los archivos se hayan generado correctamente
+          ls -la dist/SignalsBasics # Verificar que los archivos se generen correctamente
 
       # Paso 6: Crear archivo .nojekyll
       - name: Create .nojekyll file
         run: touch dist/SignalsBasics/.nojekyll
 
-      # Paso 7: Instalar la herramienta angular-cli-ghpages
+      # Paso 7: Instalar gh-pages tool
       - name: Install gh-pages tool
         run: npm install --save-dev angular-cli-ghpages
 
-      # Paso 8: Desplegar la aplicación a GitHub Pages
+      # Paso 8: Desplegar a GitHub Pages
       - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=dist/SignalsBasics
-
-      # Paso 9: Hacer el commit en la rama gh-pages
-      - name: Commit and push to gh-pages branch
-        run: git push --force "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
