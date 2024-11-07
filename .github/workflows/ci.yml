@@ -3,13 +3,12 @@ name: CI Pipeline for Angular Tests
 on:
   push:
     branches:
-      - master  # Cambié 'main' por 'master'
+      - master
   pull_request:
     branches:
-      - master  # Cambié 'main' por 'master'
+      - master
 
 jobs:
-  # Job para ejecutar las pruebas
   test:
     runs-on: ubuntu-latest
 
@@ -22,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Puedes cambiar la versión de Node.js si es necesario
+          node-version: '18'  # Cambié la versión de Node.js a '18'
 
       # Paso para instalar las dependencias
       - name: Install dependencies
