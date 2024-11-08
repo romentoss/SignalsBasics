@@ -31,8 +31,9 @@ jobs:
       # Paso 5: Construir la aplicación con baseHref
       - name: Build Angular app
         run: |
-          ng build --configuration production --base-href "https://romentoss.github.io/SignalsBasics/"
-          ls -la dist/SignalsBasics # Verificar que los archivos se generen correctamente
+          ng build --configuration production --base-href "/SignalsBasics/"
+          ls -la dist/SignalsBasics/browser # Verificar que los archivos se generen correctamente
+
 
       # Paso 6: Crear archivo .nojekyll
       - name: Create .nojekyll file
@@ -43,5 +44,10 @@ jobs:
         run: npm install --save-dev angular-cli-ghpages
 
       # Paso 8: Desplegar a GitHub Pages
+      #- name: Deploy to GitHub Pages
+       # run: npx angular-cli-ghpages --dir=dist/SignalsBasics
+
+      # Paso 8: Desplegar a GitHub Pages desde el directorio de build correcto
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/SignalsBasics
+        run: npx angular-cli-ghpages --dir=dist/SignalsBasics/browser
+

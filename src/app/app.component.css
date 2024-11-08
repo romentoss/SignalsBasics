@@ -4,16 +4,28 @@ h1 {
   /* text-align: center; */
   background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
   background-size: 401%;
-  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text; /* Prefijo para compatibilidad */
+  color: transparent;
+  -webkit-text-fill-color: transparent; /* Prefijo para compatibilidad */
   animation: colorAnimation 5s linear infinite;
+  -webkit-animation: colorAnimation 5s linear infinite; /* Prefijo para compatibilidad */
 }
 
-/* Definición de la animación */
 @keyframes colorAnimation {
   0% {
-    background-position: 0%;
+    background-position: 0% 50%;
   }
   100% {
-    background-position: 100%;
+    background-position: 100% 50%;
+  }
+}
+
+@-webkit-keyframes colorAnimation { /* Prefijo para compatibilidad */
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
   }
 }
